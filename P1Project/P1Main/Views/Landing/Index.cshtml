@@ -1,0 +1,18 @@
+﻿@{
+  ViewData["Title"] = "Landing Page";
+}
+
+@{
+  Layout = "~/Views/Shared/_Layout_Protected.cshtml";
+}
+
+
+<div class="text-center">
+  <h1 class="display-4">Welcome to Golfs-a-lot!</h1>
+</div>
+
+<div>
+  <a class="navbar-brand" asp-area="" asp-controller="Login" asp-action="LoginCustomer">Login</a>
+  <br />
+  <a class="navbar-brand" asp-area="" asp-controller="Signup" asp-action="CreateCustomer">Signup</a>
+</div>

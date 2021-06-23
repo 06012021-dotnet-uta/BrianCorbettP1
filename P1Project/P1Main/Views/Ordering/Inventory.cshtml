@@ -1,0 +1,35 @@
+﻿@model List<List<dynamic>>
+@{
+  ViewData["Title"] = "Inventory";
+}
+
+<style>
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1em;
+  }
+</style>
+
+<h1>Inventory</h1>
+<br />
+
+@foreach (var item in Model)
+{
+  <h1>@item[0]</h1>
+  <h2>@item[1]</h2>
+  <h2>$@item[2]</h2>
+  @if (item[3] != 0)
+  {
+    @Html.ActionLink("Add to cart", "SpecifyQuantity", new { id = item[4], 
+                                                             name = item[0], 
+                                                             inStock = item[3] })
+  }
+  <br />
+  <br />
+}
+
+
+

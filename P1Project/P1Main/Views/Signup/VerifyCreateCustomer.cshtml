@@ -1,0 +1,52 @@
+﻿@model ModelsLibrary.CustomerModel
+
+@{
+  ViewData["Title"] = "Verification";
+}
+@{
+  Layout = "~/Views/Shared/_Layout_Protected.cshtml";
+}
+
+
+<h1>Verify your information:</h1>
+<hr />
+<div>
+  <dl class="row">
+    <dt class="col-sm-2">
+      @Html.DisplayNameFor(model => model.FirstName)
+    </dt>
+    <dd class="col-sm-10">
+      @Html.DisplayFor(model => model.FirstName)
+    </dd>
+    <dt class="col-sm-2">
+      @Html.DisplayNameFor(model => model.LastName)
+    </dt>
+    <dd class="col-sm-10">
+      @Html.DisplayFor(model => model.LastName)
+    </dd>
+    <dt class="col-sm-2">
+      @Html.DisplayNameFor(model => model.Username)
+    </dt>
+    <dd class="col-sm-10">
+      @Html.DisplayFor(model => model.Username)
+    </dd>
+    <dt class="col-sm-2">
+      @Html.DisplayNameFor(model => model.Password)
+    </dt>
+    <dd class="col-sm-10">
+      @Html.DisplayFor(model => model.Password)
+    </dd>
+    <dt class="col-sm-2">
+      @Html.DisplayNameFor(model => model.SignupDate)
+    </dt>
+    <dd class="col-sm-10">
+      @Html.DisplayFor(model => model.SignupDate)
+    </dd>
+  </dl>
+</div>
+@{ TempData["AutofillUsername"] = Model.Username; }
+@{ TempData["AutofillPassword"] = Model.Password; }
+<div>
+  @Html.ActionLink("Submit", "SubmitNewCustomer", Model) |
+  <a asp-action="CreateCustomer">Back to signup</a>
+</div>

@@ -1,0 +1,16 @@
+﻿@model List<string> 
+@{
+    ViewData["Title"] = "SelectStore";
+}
+
+<h1>SelectStore</h1>
+
+<ul>
+  @foreach (var item in Model)
+  {
+    <li>
+        @Html.ActionLink(item, "StoreOptions", "Ordering", new { storeName = item })
+    </li>
+  }
+</ul>
+

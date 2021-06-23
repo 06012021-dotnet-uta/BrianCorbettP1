@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "SpecifyQuantity";
+}
+
+<style>
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1em;
+  }
+</style>
+
+<h1>SpecifyQuantity</h1>
+
+<h1>@TempData["OrderItemName"]</h1>
+<h2>@TempData["OrderItemInStock"]</h2>
+<form asp-action="SeeCart">
+  <label>Quantity: <input type="number" name="qty" /></label>
+  <input type="submit" value="Add to Cart" />
+</form>

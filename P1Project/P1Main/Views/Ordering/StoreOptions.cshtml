@@ -1,0 +1,16 @@
+﻿@model ModelsLibrary.StoreModel
+@{
+  ViewData["Title"] = "StoreOptions";
+}
+
+<h1>@Model.StoreLocation options</h1>
+
+<ul>
+  <li>
+    @Html.ActionLink("Inventory", "Inventory"@*, new { id = Model.StoreId }*@)
+  </li>
+  <li>
+    @Html.ActionLink("Store order history", "StoreOrderHistory"@*, new { id = Model.StoreId }*@)
+  </li>
+</ul>
+

@@ -1,0 +1,21 @@
+﻿@model ModelsLibrary.CustomerModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Home</h1>
+
+<a class="navbar-brand" asp-area="" asp-controller="CustomerSearch" asp-action="Search">
+  Search for customer details and order history
+</a>
+<br />
+<a class="navbar-brand" asp-area="" asp-controller="Ordering" asp-action="SelectStore">
+  Select a store location to order from
+</a>
+<br />
+<a class="navbar-brand" asp-area="" asp-controller="OrderHistory" asp-action="Index">
+  See your order history
+</a>
+
+
+
