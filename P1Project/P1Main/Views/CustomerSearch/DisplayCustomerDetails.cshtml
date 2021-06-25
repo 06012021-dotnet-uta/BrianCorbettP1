@@ -1,18 +1,22 @@
-﻿@model List<List<string>>
+﻿@model List<ModelsLibrary.CustomerModel>
 
 @{
   ViewData["Title"] = "DisplayCustomerDetails";
 }
 
-<h1>DisplayCustomerDetails</h1>
+<h1>Search results</h1>
 <hr />
 <br />
 
-@foreach (var detail in Model)
+@foreach (var customer in Model)
 {
-  <h1>@detail[0] @detail[1]</h1>
-  <h2>(@detail[2])</h2>
-  <h3>Signed up on @DateTime.Parse(detail[3]).ToString("yyyy-MM-dd")</h3>
+  <h1>
+    <a class="navbar-brand" asp-route-customerId="@customer.CustomerId" asp-controller="History" asp-action="SeeCustomerHistory">
+      @customer.FirstName @customer.LastName
+    </a>
+  </h1>
+  <h2>(@customer.Username)</h2>
+  <h3>Signed up on @customer.SignupDate.ToString("yyyy-MM-dd")</h3>
   <br /><br />
 }
 

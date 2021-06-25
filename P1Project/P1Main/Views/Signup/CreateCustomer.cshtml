@@ -4,7 +4,7 @@
   ViewData["Title"] = "Signup!";
 }
 @{
-  Layout = "~/Views/Shared/_Layout_Protected.cshtml";
+  Layout = "~/Views/Shared/_Layout_Signed_Out.cshtml";
 }
 
 <h1>Make an account</h1>
@@ -44,7 +44,7 @@
 </div>
 
 <div>
-  <a asp-action="Index">Back to List</a>
+  <a asp-controller="Landing" asp-action="Index">Back to Landing</a>
 </div>
 
 @section Scripts {

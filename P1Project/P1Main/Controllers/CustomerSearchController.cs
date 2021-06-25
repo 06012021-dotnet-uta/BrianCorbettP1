@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ModelsLibrary;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BusinessLayer;
 
 namespace P1Main.Controllers
@@ -26,8 +21,9 @@ namespace P1Main.Controllers
 
     public ActionResult DisplayCustomerDetails(CustomerModel customer)
     {
-      List<List<string>> CustomerDetails = _DbInteract.GetCustomerSearchDetails(customer.Username, customer.FirstName, customer.LastName);
-      return View(CustomerDetails);
+      List<CustomerModel> SearchedCustomers = _DbInteract.GetCustomerSearchDetails(
+        userName: customer.Username, firstName: customer.FirstName, lastName: customer.LastName);
+      return View(SearchedCustomers);
     }
   }
 }

@@ -10,16 +10,13 @@ namespace BusinessLayer
   public static class Cart
   {
     public static List<List<int>> InCartItems { get; set; } = new List<List<int>>();
-    //private static readonly DbInteract _DbInteract = IDbInteract dbIntreat;
     public static int focusStoreId { get; set; }
 
     public static decimal CartTotal(IDbInteract _DbInteract)
     {
       decimal total = 0;
       foreach (var item in DisplayCart(_DbInteract))
-      {
         total += Decimal.Parse(item[3].ToString());
-      }
       return total;
     }
 

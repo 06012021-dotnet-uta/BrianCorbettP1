@@ -1,0 +1,13 @@
+﻿@model List<ModelsLibrary.ItemOrderDetail>
+@{
+  ViewData["Title"] = "SeeOrderDetails";
+}
+
+<h1>Order details</h1>
+
+@foreach (var item in Model)
+{
+  <h1>@item.ItemName</h1>
+  <h2>Quantity: @item.QuantityOrdered    ---    $@item.ItemCost</h2>
+  <hr />
+}

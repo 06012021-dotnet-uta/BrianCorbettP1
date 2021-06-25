@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using ModelsLibrary;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace P1Main.Controllers
@@ -29,24 +28,21 @@ namespace P1Main.Controllers
       StoreModel Store = _DbInteract.GetStore(storeName);
       HttpContext.Session.SetInt32("FocusStoreId", Store.StoreId);
       Cart.focusStoreId = (int)Store.StoreId;
+      ViewBag.StoreLocation = storeName;
       return View(Store);
     }
 
-    public ActionResult Inventory(/*int id*/)
+    public ActionResult Inventory()
     {
-      //int storeId = id;
-      List<List<dynamic>> StoreInventory = _DbInteract.GetStoreInventory(/*storeId*/(int)HttpContext.Session.GetInt32("CustomerId"));
+      List<StoredItemDisplay> StoreInventory = _DbInteract.GetStoreInventory(Int32.Parse(HttpContext.Session.GetInt32("FocusStoreId").ToString()));
       return View(StoreInventory);
     }
     
     public ActionResult SpecifyQuantity(int id, string name, int inStock)
     {
-      int itemId = id;
-      string itemName = name;
-      int itemInStock = inStock;
-      TempData["OrderItemId"] = itemId;
-      TempData["OrderItemName"] = itemName;
-      TempData["OrderItemInStock"] = itemInStock;
+      TempData["OrderItemId"] = id;
+      TempData["OrderItemName"] = name;
+      TempData["OrderItemInStock"] = inStock;
       return View();
     }
 
@@ -54,9 +50,7 @@ namespace P1Main.Controllers
     {
       int quantity = qty;
       if (qty == 0)
-      {
         return View(new List<List<dynamic>>());
-      }
       else
       {
         Cart.AddToCart((int)TempData["OrderItemId"], (int)Cart.focusStoreId, quantity);
@@ -74,7 +68,7 @@ namespace P1Main.Controllers
         CustomerId = Int32.Parse(HttpContext.Session.GetInt32("CustomerId").ToString()),
         StoreId = (int)Cart.focusStoreId
       };
-      bool SuccessfulOrderCreation = await _DbInteract.CreateNewOrder(NewCustomerOrder);
+      bool SuccessfulOrderCreation = await _DbInteract.CreateNewOrderAsync(NewCustomerOrder);
       if (SuccessfulOrderCreation) 
       {
         foreach (var item in Cart.InCartItems)
@@ -85,23 +79,14 @@ namespace P1Main.Controllers
             ItemId = item[0],
             QuantityOrdered = item[2]
           };
-          bool SuccessfulOrderedItemInsertion = await _DbInteract.InsertNewOrderedItem(NewOrderedItem);
+          bool SuccessfulOrderedItemInsertion = await _DbInteract.InsertNewOrderedItemAsync(NewOrderedItem);
           if (!SuccessfulOrderedItemInsertion)
-          {
             return View("Error", "Order creation failed.");
-          }
         }
         Cart.EmptyCart();
         return View();
       }
       return View("Error", "Order creation failed.");
     }
-
-    public ActionResult StoreOrderHistory(string storeName)
-    {
-      // get details of CustomerOrders & OrderedItems with storeId
-      return View();
-    }
-
   }
 }

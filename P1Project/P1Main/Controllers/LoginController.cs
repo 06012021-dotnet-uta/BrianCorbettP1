@@ -2,10 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ModelsLibrary;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace P1Main.Controllers
 {
@@ -27,7 +23,7 @@ namespace P1Main.Controllers
     [HttpPost]
     public ActionResult VerifyLoginCustomer(CustomerModel customerLogin)
     {
-      bool SuccessfulVerification = _DbInteract.VerifyCustomer(customerLogin.Username, customerLogin.Password);
+      bool SuccessfulVerification = _DbInteract.ValidateCustomer(customerLogin.Username, customerLogin.Password);
       if (SuccessfulVerification)
       {
         CustomerModel customer = _DbInteract.GetCustomer(customerLogin.Username, customerLogin.Password);
