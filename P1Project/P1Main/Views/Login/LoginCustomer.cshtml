@@ -20,7 +20,10 @@
     border: 1px solid black;
     border-radius: 20px;
   }
-
+  /*p.error {
+    color: firebrick;
+    font-weight: bold;
+  }*/
   .center {
     text-align: center;
   }
@@ -29,6 +32,11 @@
 <h1>Login</h1>
 <hr />
 <br />
+
+@*@if (ViewBag.LoginError == true)
+{
+  <p class="error">Your username and/or password was invalid</p>
+}*@
 
 <div class="row">
   <div class="col-md-4 form-style thin-border">

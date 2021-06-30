@@ -45,7 +45,10 @@ namespace P1Main.Controllers
         return RedirectToAction("Index", "Home", customer);
       }
       else
+      {
+        //ViewBag.LoginError = true;
         return RedirectToAction("LoginCustomer", "Login");
+      }
     }
   }
 }
