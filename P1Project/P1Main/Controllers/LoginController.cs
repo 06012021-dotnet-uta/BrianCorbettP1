@@ -45,7 +45,7 @@ namespace P1Main.Controllers
         return RedirectToAction("Index", "Home", customer);
       }
       else
-        return View("LoginCustomer");
+        return RedirectToAction("LoginCustomer", "Login");
     }
   }
 }

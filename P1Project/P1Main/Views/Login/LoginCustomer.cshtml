@@ -10,7 +10,7 @@
 <style>
   .form-style {
     display: table;
-    margin: 15% auto 20px auto;
+    margin: 7% auto 20px auto;
     width: 30%;
     box-shadow: black 10px 10px 10px;
     padding: 15px;
@@ -32,7 +32,7 @@
 
 <div class="row">
   <div class="col-md-4 form-style thin-border">
-    <form asp-action="VerifyLoginCustomer">
+    <form asp-action="VerifyLoginCustomer" autocomplete="off">
       <div asp-validation-summary="ModelOnly" class="text-danger"></div>
       <div class="form-group">
         <label asp-for="Username" class="control-label"></label>
