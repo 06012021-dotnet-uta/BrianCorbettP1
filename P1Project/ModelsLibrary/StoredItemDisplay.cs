@@ -4,11 +4,11 @@
   public class StoredItemDisplay
 #pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
   {
-    public string ItemName;
-    public string ItemDescription;
-    public decimal ItemPrice;
-    public int InStock;
-    public int ItemId;
+    public string ItemName { get; set; }
+    public string ItemDescription { get; set; }
+    public decimal ItemPrice { get; set; }
+    public int InStock { get; set; }
+    public int ItemId { get; set; }
 
     public override bool Equals(object obj)
     {

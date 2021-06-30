@@ -4,30 +4,28 @@
 }
 
 <style>
-  h1 {
-    font-size: 2em;
-  }
-
-  h2 {
-    font-size: 1em;
+  p {
+    font-size: 1.5em;
   }
 </style>
 
 <h1>@ViewBag.StoreLocation Inventory</h1>
+<p>@Html.ActionLink("Back to store location", "SelectStore", "Ordering")</p>
+<hr />
 <br />
 
 @foreach (var item in Model)
 {
-  <h1>@item.ItemName</h1>
-  <h2>@item.ItemDescription</h2>
-  <h2>$@item.ItemPrice</h2>
+  <h2>@item.ItemName</h2>
+  <h3>@item.ItemDescription</h3>
+  <h4>$@item.ItemPrice</h4>
   @if (item.InStock != 0)
   {
     @Html.ActionLink("Add to cart", "SpecifyQuantity", new { id = item.ItemId, 
                                                              name = item.ItemName, 
                                                              inStock = item.InStock })
   }
-  <br />
+  <hr />
   <br />
 }
 

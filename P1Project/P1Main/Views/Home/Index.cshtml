@@ -5,19 +5,22 @@
   ViewData["Title"] = "Index";
 }
 
+<style>
+  p {
+    font-size: 1.5em;
+  }
+</style>
+
 <h1>Home</h1>
+<hr />
+<br /> 
 
-<a class="navbar-brand" asp-area="" asp-controller="Ordering" asp-action="SelectStore">
-  Shop
-</a>
-<br />
-<a class="navbar-brand" asp-route-customerId="@Context.Session.GetInt32("CustomerId")" asp-controller="History" asp-action="SeeCustomerHistory">
-  Your order history
-</a>
-<br />
-<a class="navbar-brand" asp-area="" asp-controller="CustomerSearch" asp-action="Search">
-  Customer search
-</a>
-
+<div>
+  <p>@Html.ActionLink("Shop", "StoreOptions", "Ordering", new { storeName = Context.Session.GetString("DefaultStore") })</p>
+  <br />
+  <p>@Html.ActionLink("Your order history", "SeeCustomerHistory", "History", new { customerId = ViewBag.CustomerId })</p>
+  <br />
+  <p>@Html.ActionLink("Customer search", "Search", "CustomerSearch")</p>
+</div>
 
 

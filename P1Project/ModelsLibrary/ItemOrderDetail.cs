@@ -4,10 +4,10 @@
   public class ItemOrderDetail
 #pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
   {
-    public string ItemName;
-    public int QuantityOrdered;
-    public decimal ItemCost;
-    public int CustomerId;
+    public string ItemName { get; set; }
+    public int QuantityOrdered { get; set; }
+    public decimal ItemCost { get; set; }
+    public int CustomerId { get; set; }
 
     public override bool Equals(object obj)
     {

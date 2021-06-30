@@ -24,11 +24,16 @@ namespace ModelsLibrary
     [MaxLength(30)] [Required(ErrorMessage= "This field is required.")] [Display(Name = "Last Name")]
     public string LastName { get; set; }
     [MaxLength(20)] [Required(ErrorMessage = "This field is required.")] [Display(Name = "Username")]
+    [RegularExpression(@"^\S*$", ErrorMessage ="No spaces allowed")]
     public string Username { get; set; }
     [MaxLength(20)] [Required(ErrorMessage= "This field is required.")] [Display(Name = "Password")]
     public string Password { get; set; }
     [Required] [Display(Name = "Signup Date")]
     public DateTime SignupDate { get; set; }
+    [Display(Name = "Default Store")]
+    public int DefaultStoreId { get; set; }
+    [ForeignKey("DefaultStoreId")]
+    public StoreModel Store { get; set; }
 
     public override bool Equals(object obj)
     {
@@ -40,7 +45,8 @@ namespace ModelsLibrary
           this.LastName == that.LastName &&
           this.Username == that.Username &&
           this.Password == that.Password &&
-          this.SignupDate == that.SignupDate);
+          this.SignupDate == that.SignupDate &&
+          this.DefaultStoreId == that.DefaultStoreId);
       }
       return false;
     }

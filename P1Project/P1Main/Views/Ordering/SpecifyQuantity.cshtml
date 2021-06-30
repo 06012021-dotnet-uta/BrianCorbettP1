@@ -1,22 +1,20 @@
-﻿@{
+﻿@model ModelsLibrary.CheckoutItemDetails
+@{
     ViewData["Title"] = "SpecifyQuantity";
 }
 
-<style>
-  h1 {
-    font-size: 2em;
-  }
-
-  h2 {
-    font-size: 1em;
-  }
-</style>
-
 <h1>Specify a quantity</h1>
+<hr />
+<br />
 
-<h1>@TempData["OrderItemName"]</h1>
-<h2>@TempData["OrderItemInStock"]</h2>
+<h1>@Model.ItemName</h1>
+<h2>In stock: @Model.InStock</h2>
 <form asp-action="SeeCart">
-  <label>Quantity: <input type="number" name="qty" /></label>
+  <input style="display: none;" name="itemId" value="@ViewBag.ItemId" />
+  <label>Quantity: <input type="number" min="1" max="@ViewBag.InStock" name="qty" /></label>
   <input type="submit" value="Add to Cart" />
 </form>
+
+<div>
+  @Html.ActionLink("See cart", "SeeCart", "Ordering")
+</div>

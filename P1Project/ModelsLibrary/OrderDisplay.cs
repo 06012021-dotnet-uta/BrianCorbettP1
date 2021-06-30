@@ -6,10 +6,10 @@ namespace ModelsLibrary
   public class OrderDisplay
 #pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
   {
-    public int OrderId;
-    public DateTime OrderDate;
-    public decimal OrderCost;
-    public string StoreLocation;
+    public int OrderId { get; set; }
+    public DateTime OrderDate { get; set; }
+    public decimal OrderCost { get; set; }
+    public string StoreLocation { get; set; }
 
     public override bool Equals(object obj)
     {

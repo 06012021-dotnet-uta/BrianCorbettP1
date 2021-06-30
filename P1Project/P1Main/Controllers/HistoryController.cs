@@ -16,6 +16,11 @@ namespace P1Main.Controllers
       this._DbInteract = dbInteract;
     }
 
+    /// <summary>
+    /// A view that shows a customer's order history
+    /// </summary>
+    /// <param name="customerId">The CustomerId of the customer whose order history to display</param>
+    /// <returns>The view object to display to the user</returns>
     public ActionResult SeeCustomerHistory(int customerId = -1)
     {
       List<OrderDisplay> orders = new();
@@ -32,6 +37,11 @@ namespace P1Main.Controllers
       return View(orders);
     }
 
+    /// <summary>
+    /// A view to display the order history of a store
+    /// </summary>
+    /// <param name="location">The store location name of the store whose order history to display</param>
+    /// <returns>The view object to display to the user</returns>
     public ActionResult SeeStoreHistory(string location)
     {
       ViewBag.StoreLocation = location;

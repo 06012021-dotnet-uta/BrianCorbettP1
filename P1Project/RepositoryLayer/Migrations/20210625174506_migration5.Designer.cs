@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepositoryLayer;
 
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(P1Db))]
-    partial class P1DbModelSnapshot : ModelSnapshot
+    [Migration("20210625174506_migration5")]
+    partial class migration5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,6 +27,9 @@ namespace RepositoryLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DefaultStoreId")
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -44,9 +49,6 @@ namespace RepositoryLayer.Migrations
                     b.Property<DateTime>("SignupDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("StoreId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -54,7 +56,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.HasIndex("StoreId");
+                    b.HasIndex("DefaultStoreId");
 
                     b.ToTable("Customers");
                 });
@@ -169,7 +171,7 @@ namespace RepositoryLayer.Migrations
                 {
                     b.HasOne("ModelsLibrary.StoreModel", "Store")
                         .WithMany()
-                        .HasForeignKey("StoreId")
+                        .HasForeignKey("DefaultStoreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using ModelsLibrary;
 using System.Threading.Tasks;
 using System.Linq;
+using System;
 
 namespace P1ProjectTests
 {
@@ -13,6 +14,144 @@ namespace P1ProjectTests
   {
     DbContextOptions<P1Db> options = new DbContextOptionsBuilder<P1Db>()
       .UseInMemoryDatabase(databaseName: "TestingDb").Options;
+
+    [Fact]
+    public void DecreaseInStockValueDecrementsCorrectly()
+    {
+      //Arrrange
+      StoreModel store = new() { StoreId = 1, StoreLocation = "Chicago" };
+      ItemsModel item = new() { ItemId = 1, ItemName = "Post-it Notes", ItemDescription = "Water proof!", ItemPrice = 12.99M };
+      StoredItemsModel storedItem = new() { ItemId = 1, StoreId = 1, InStock = 100 };
+
+      //Act
+      using (var context = new P1Db(options))
+      {
+        context.Database.EnsureDeleted();
+        context.Database.EnsureCreated();
+
+        DbInteract dbInteract = new(context);
+        context.Stores.Add(store);
+        context.Items.Add(item);
+        context.StoredItems.Add(storedItem);
+
+        context.SaveChanges();
+
+        dbInteract.DecreaseInStock(item.ItemId, store.StoreId, 10);
+      }
+
+      //Assert
+      int expectedInStock = 90;
+      Assert.Equal(expectedInStock, storedItem.InStock);
+    }
+
+    [Fact]
+    public void GetStoredItemQuantityReturnsCorrectValue()
+    {
+      //Arrange
+      StoreModel store = new() { StoreId = 1, StoreLocation = "Chicago" };
+      ItemsModel item = new() { ItemId = 1, ItemName = "Post-it Notes", ItemDescription = "Water proof!", ItemPrice = 12.99M };
+      StoredItemsModel storedItem = new() { ItemId = 1, StoreId = 1, InStock = 100 };
+
+      //Act
+      int result;
+      using (var context = new P1Db(options))
+      {
+        context.Database.EnsureDeleted();
+        context.Database.EnsureCreated();
+
+        DbInteract dbInteract = new(context);
+        context.Stores.Add(store);
+        context.Items.Add(item);
+        context.StoredItems.Add(storedItem);
+
+        context.SaveChanges();
+
+        result = dbInteract.GetStoredItemQuantity(item.ItemId, store.StoreId);
+      }
+
+      //Assert
+      Assert.Equal(100, result);
+    }
+
+      [Fact]
+    public void GetStoresReturnsAllStoresInStoreModelType()
+    {
+      //Arrange 
+      StoreModel store1 = new() { StoreLocation = "LA" };
+      StoreModel store2 = new() { StoreLocation = "Tokyo" };
+      StoreModel store3 = new() { StoreLocation = "Bangladesh" };
+
+      //Act
+      List<StoreModel> result;
+      using (var context = new P1Db(options))
+      {
+        context.Database.EnsureDeleted();
+        context.Database.EnsureCreated();
+
+        DbInteract dbInteract = new(context);
+        context.Stores.Add(store1);
+        context.Stores.Add(store2);
+        context.Stores.Add(store3);
+
+        context.SaveChanges();
+
+        result = dbInteract.GetStores();
+      }
+
+      //Assert
+      List<StoreModel> expectedResult = new() { store1, store2, store3 };
+      Assert.True(result.GetType() == expectedResult.GetType());
+      Assert.Equal(expectedResult, result);
+    }
+
+    [Fact]
+    public void CreateCustomerOrderReturnsValidCustomerOrder()
+    {
+      //Arrange
+      CustomerOrderModel customerOrder = new() { OrderCost = 23.89M, CustomerId = 1, StoreId = 1, OrderDate = DateTime.Now };
+
+      //Act
+      CustomerOrderModel result;
+      using (var context = new P1Db(options))
+      {
+        context.Database.EnsureDeleted();
+        context.Database.EnsureCreated();
+
+        DbInteract dbInteract = new(context);
+        result = ModelCreation.CreateCustomerOrder(23.89M, 1, 1);
+        customerOrder.OrderDate = result.OrderDate;
+
+        context.SaveChanges();
+      }
+
+      //Assert
+      Assert.True(result.GetType() == typeof(CustomerOrderModel));
+      Assert.Equal(customerOrder, result);
+    }
+
+    [Fact]
+    public void CreateOrderedItemReturnsValidItem()
+    {
+      //Arrange
+      OrderedItemsModel orderedItem = new() { OrderId = 1, ItemId = 1, QuantityOrdered = 1 };
+
+      //Act
+      OrderedItemsModel result;
+      using (var context = new P1Db(options))
+      {
+        context.Database.EnsureDeleted();
+        context.Database.EnsureCreated();
+
+        DbInteract dbInteract = new(context);
+        result = ModelCreation.CreateOrderedItem(1, 1, 1);
+
+        context.SaveChanges();
+      }
+
+      //Assert
+      Assert.True(result.GetType() == typeof(OrderedItemsModel));
+      Assert.Equal(orderedItem, result);
+    }
 
     [Fact]
     public async Task CreateNewOrderedItemInsertsItemCorrectly()
@@ -602,26 +741,30 @@ namespace P1ProjectTests
     public void AddToCartAppendsNewList()
     {
       //Arrange
+      CartItem cartItem = new() { ItemId = 1, StoreId = 1, Quantity = 1 };
 
       //Act
-      Cart.AddToCart(1, 1, 1);
+      Cart.AddToCart(cartItem);
 
       //Assert
-      Assert.Equal(new List<List<int>>() { new List<int>() { 1, 1, 1 } }, Cart.InCartItems);
+      Assert.Equal(new List<CartItem>() { cartItem }, Cart.InCartItems);
     }
 
     [Fact]
     public void EmptyCartCreatesEmptyList()
     {
       //Arrange
-      Cart.AddToCart(1, 2, 1);
-      Cart.AddToCart(2, 3, 1);
+      CartItem cartItem1 = new() { ItemId = 1, StoreId = 2, Quantity = 1 };
+      CartItem cartItem2 = new() { ItemId = 2, StoreId = 3, Quantity = 1 };
+
+      Cart.AddToCart(cartItem1);
+      Cart.AddToCart(cartItem2);
 
       //Act
       Cart.EmptyCart();
 
       //Assert
-      Assert.Equal(new List<List<int>>() { }, Cart.InCartItems);
+      Assert.Equal(new List<CartItem>() { }, Cart.InCartItems);
     }
   }
 }

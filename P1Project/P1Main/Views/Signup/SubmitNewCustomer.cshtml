@@ -7,6 +7,11 @@
 
 @ViewBag.RegSuccess
 <br />
-<a class="navbar-brand" asp-controller="Login" asp-action="LoginCustomer">
-  Login now!
-</a>
+
+
+<div>
+  @Html.ActionLink("Login now!", "LoginCustomer", "Login") |
+  @Html.ActionLink("Back to Landing", "Index", "Landing")
+</div>
+
+

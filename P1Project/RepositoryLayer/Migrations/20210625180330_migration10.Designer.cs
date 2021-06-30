@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepositoryLayer;
 
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(P1Db))]
-    partial class P1DbModelSnapshot : ModelSnapshot
+    [Migration("20210625180330_migration10")]
+    partial class migration10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,8 +55,6 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("CustomerId");
-
-                    b.HasIndex("StoreId");
 
                     b.ToTable("Customers");
                 });
@@ -163,17 +163,6 @@ namespace RepositoryLayer.Migrations
                     b.HasIndex("StoreId");
 
                     b.ToTable("StoredItems");
-                });
-
-            modelBuilder.Entity("ModelsLibrary.CustomerModel", b =>
-                {
-                    b.HasOne("ModelsLibrary.StoreModel", "Store")
-                        .WithMany()
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Store");
                 });
 
             modelBuilder.Entity("ModelsLibrary.CustomerOrderModel", b =>

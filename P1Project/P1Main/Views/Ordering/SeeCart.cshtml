@@ -1,4 +1,4 @@
-﻿@model List<List<dynamic>>
+﻿@model List<ModelsLibrary.CartItemDisplay>
 @{
   ViewData["Title"] = "SeeCart";
 }
@@ -14,18 +14,19 @@
 </style>
 
 <h1>Your cart</h1>
+<hr />
+<br />
 
 @if (Model.Count == 0)
 {
   <h1>There are no items in your cart.</h1>
-  <hr />
 }
 else
 {
   foreach (var item in Model)
   {
-    <h1>@item[0]</h1>
-    <h2>Quantity: @item[2]    ---    $@item[3]</h2>
+    <h1>@item.DisplayName</h1>
+    <h2>Quantity: @item.Quantity    ---    $@item.OrderPrice</h2>
     <hr />
   }
   <h1>Cart Total: $@ViewBag.CartTotal</h1>

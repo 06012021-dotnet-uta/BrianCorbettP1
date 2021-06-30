@@ -22,7 +22,10 @@ namespace BusinessLayer
     List<StoreOrderDisplay> GetStoreOrderHistory(int storeId);
     List<CustomerModel> GetCustomerSearchDetails(string userName = "", string firstName = "", string lastName = "");
     List<ItemOrderDetail> GetOrderDetails(int orderId);
-    // ^^^ Passed ^^^
+    List<StoreModel> GetStores();
+    int GetStoredItemQuantity(int itemId, int storeId);
+    void DecreaseInStock(int itemId, int storeId, int qty);
+    // ^^^ Passed ^^^ 
     // ^^^ Failed ^^^
     // ^^^ Untested ^^^
   }

@@ -5,7 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ModelsLibrary
 {
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
   public class CustomerOrderModel
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
   {
     public virtual ICollection<OrderedItemsModel> OrderedItems { get; set; }
     public CustomerOrderModel()
@@ -28,5 +30,19 @@ namespace ModelsLibrary
     public int StoreId { get; set; }
     [Required] [ForeignKey("StoreId")]
     public StoreModel Store { get; set; }
+
+    public override bool Equals(object obj)
+    {
+      if (obj is CustomerOrderModel)
+      {
+        var that = obj as CustomerOrderModel;
+        return (this.OrderId == that.OrderId &&
+          this.OrderDate == that.OrderDate &&
+          this.OrderCost == that.OrderCost &&
+          this.CustomerId == that.CustomerId &&
+          this.StoreId == that.StoreId);
+      }
+      return false;
+    }
   }
 }

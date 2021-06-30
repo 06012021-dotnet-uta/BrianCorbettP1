@@ -3,14 +3,18 @@
   ViewData["Title"] = "StoreOptions";
 }
 
+<style>
+  p {
+    font-size: 1.5em;
+  }
+</style>
+
 <h1>@Model.StoreLocation location</h1>
+<p>@Html.ActionLink("Change store", "SelectStore")</p>
+<hr />
 
-<ul>
-  <li>
-    @Html.ActionLink("Inventory", "Inventory"@*, new { id = Model.StoreId }*@)
-  </li>
-  <li>
-    @Html.ActionLink("Store order history", "SeeStoreHistory", "History", new { location = Model.StoreLocation })
-  </li>
-</ul>
-
+<div>
+  <p>@Html.ActionLink("Inventory", "Inventory")</p>
+  <br />
+  <p>@Html.ActionLink("Store order history", "SeeStoreHistory", "History", new { location = Model.StoreLocation })</p>
+</div>

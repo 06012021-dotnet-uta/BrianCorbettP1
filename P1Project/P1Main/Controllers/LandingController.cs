@@ -14,6 +14,10 @@ namespace P1Main.Controllers
       _logger = logger;
     }
 
+    /// <summary>
+    /// A view to display logging in and signing up options
+    /// </summary>
+    /// <returns>The view object to display to the user</returns>
     public IActionResult Index()
     {
       return View();

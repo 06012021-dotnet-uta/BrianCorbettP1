@@ -3,7 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ModelsLibrary
 {
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
   public class OrderedItemsModel
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
   {
     public OrderedItemsModel() { }
 
@@ -17,5 +19,17 @@ namespace ModelsLibrary
     public ItemsModel Item { get; set; }
     [Required] [Display(Name = "Quantity ordered")]
     public int QuantityOrdered { get; set; }
+
+    public override bool Equals(object obj)
+    {
+      if (obj is OrderedItemsModel)
+      {
+        var that = obj as OrderedItemsModel;
+        return (this.OrderId == that.OrderId &&
+          this.ItemId == that.ItemId &&
+          this.QuantityOrdered == that.QuantityOrdered);
+      }
+      return false;
+    }
   }
 }

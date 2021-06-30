@@ -4,21 +4,49 @@
   ViewData["Title"] = "DisplayCustomerDetails";
 }
 
+<style>
+  .form-style {
+    display: table;
+    margin: 5% auto 20px auto;
+    width: 30%;
+    box-shadow: black 10px 10px 10px;
+    padding: 15px;
+  }
+
+  .thin-border {
+    border: 1px solid black;
+    border-radius: 20px;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  p {
+    font-size: 1.5em;
+  }
+</style>
+
 <h1>Search results</h1>
+<p>@Html.ActionLink("Search another customer", "Search")</p>
 <hr />
 <br />
 
-@foreach (var customer in Model)
+@if (Model.Count == 0)
 {
-  <h1>
-    <a class="navbar-brand" asp-route-customerId="@customer.CustomerId" asp-controller="History" asp-action="SeeCustomerHistory">
-      @customer.FirstName @customer.LastName
-    </a>
-  </h1>
-  <h2>(@customer.Username)</h2>
-  <h3>Signed up on @customer.SignupDate.ToString("yyyy-MM-dd")</h3>
-  <br /><br />
+  <h2>No customers came up in the search</h2>
+}
+else
+{
+  @foreach (var customer in Model)
+  {
+    <h2>
+      @Html.ActionLink($"{customer.FirstName} {customer.LastName}", "SeeCustomerHistory", "History", new { customerId = customer.CustomerId })
+    </h2>
+    <p>(@customer.Username)</p>
+    <p>Signed up on @customer.SignupDate.ToString("yyyy-MM-dd")</p>
+    <hr />
+  }
 }
 
-@Html.ActionLink("Back to home", "Index", "Home") |
-@Html.ActionLink("Search another customer", "Search")
+

@@ -6,13 +6,35 @@
   Layout = "~/Views/Shared/_Layout_Signed_Out.cshtml";
 }
 
+<style>
+  .form-style {
+    display: table;
+    margin: 15% auto 0 auto;
+    width: 15%;
+    box-shadow: black 10px 10px 10px;
+    padding: 15px;
+  }
+  .account-text {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+  }
+  .thin-border {
+    border: 1px solid black;
+    border-radius: 20px;
+  }
+</style>
 
 <div class="text-center">
   <h1 class="display-4">Welcome to Golfs-a-lot!</h1>
 </div>
 
-<div>
-  <a class="navbar-brand" asp-area="" asp-controller="Login" asp-action="LoginCustomer">Login</a>
+<div class="form-style thin-border">
+  <div class="account-text">
+    @Html.ActionLink("Login", "LoginCustomer", "Login")
+  </div>
   <br />
-  <a class="navbar-brand" asp-area="" asp-controller="Signup" asp-action="CreateCustomer">Signup</a>
+  <div class="account-text">
+    @Html.ActionLink("Signup", "CreateCustomer", "Signup")
+  </div>
 </div>

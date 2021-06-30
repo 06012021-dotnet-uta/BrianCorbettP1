@@ -1,16 +1,28 @@
-﻿@model List<string> 
+﻿@model List<string>
 @{
-    ViewData["Title"] = "SelectStore";
+  ViewData["Title"] = "SelectStore";
 }
 
+<style>
+  p {
+    font-size: 1.5em;
+  }
+</style>
+
 <h1>Select a store location</h1>
+<hr />
+<br />
 
 <ul>
   @foreach (var item in Model)
   {
     <li>
-        @Html.ActionLink(item, "StoreOptions", "Ordering", new { storeName = item })
+      <p>@Html.ActionLink(item, "StoreOptions", "Ordering", new { storeName = item })</p>
     </li>
   }
 </ul>
+
+<div>
+  @Html.ActionLink("Back to home", "Index", "Home")
+</div>
 
