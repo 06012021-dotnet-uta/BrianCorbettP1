@@ -33,5 +33,9 @@ Luckily, this application doesn't take much to run.
 * You will then just need to open the main solution: P1Project/ > P1Main/ > P1Main.sln
 * From there, it's just a matter of pressing run
 
+## Usage
+![Screenshot 2021-07-23 152354](https://user-images.githubusercontent.com/85184581/126847899-ceb92a3d-f640-48cf-81f0-846f053064bd.png)
+
+
 ## License
 This project uses the following license: MIT License
